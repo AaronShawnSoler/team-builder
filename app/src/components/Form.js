@@ -3,12 +3,18 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-export default function Form() {
+export default function Form(props) {
+
+  const {
+    team,
+    setTeam
+  } = props
 
   // Schema ===
   const schema = yup.object().shape({
     name: yup
       .string()
+      .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ")
       .required(),
     email: yup
       .string()
@@ -21,13 +27,17 @@ export default function Form() {
   })
 
   // useForm Hook ===
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema)
   })
 
   // handleSubmit
   const onSubmit = data => {
-    console.log(data)
+    setTeam([
+      ...team,
+      data
+    ])
+    reset()
   }
 
   return (
