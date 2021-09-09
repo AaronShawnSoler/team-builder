@@ -9,7 +9,9 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Team Builder</h1>
       <Form team={team} setTeam={setTeam}/>
+      <hr/>
       <List team={team}/>
     </div>
   );
